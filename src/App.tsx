@@ -1,334 +1,344 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { weddingData } from "./data";
-import silkyBg from "./assets/lux-watercolor-bg.png";
-import floralBg from "./assets/lux-marble-bg.png";
-import waxSealImg from "./assets/wax-seal.png";
+import emeraldBg from "./assets/emerald-burgundy-bg.png";
+import musicFile from "./assets/wedding-music.mp3";
+import { useRef } from "react";
 
-// ══════════ ORNAMENT ══════════
-function Ornament({ large = false }: { large?: boolean }) {
+// ══════════ GOLD CALLIGRAPHIC SVG DIVIDER ══════════
+function GoldDivider() {
   return (
-    <div className={`ornament ${large ? "ornament--large" : ""}`}>
-      <div className="ornament__line" />
-      <div className="ornament__diamond" />
-      <div className="ornament__line" />
+    <div className="gold-divider">
+      <svg width="240" height="24" viewBox="0 0 240 24" fill="none">
+        <defs>
+          <linearGradient id="gold-shimmer-divider" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#bda06a" />
+            <stop offset="25%" stopColor="#dfc089" />
+            <stop offset="50%" stopColor="#fffdf5" />
+            <stop offset="75%" stopColor="#dfc089" />
+            <stop offset="100%" stopColor="#bda06a" />
+            <animate attributeName="x1" from="-100%" to="100%" dur="3.5s" repeatCount="indefinite" />
+            <animate attributeName="x2" from="0%" to="200%" dur="3.5s" repeatCount="indefinite" />
+          </linearGradient>
+        </defs>
+        {/* Center diamond */}
+        <path d="M120 4 L128 12 L120 20 L112 12 Z" fill="url(#gold-shimmer-divider)" />
+        {/* Left wing lines */}
+        <path d="M10 12 H100 M20 12 L30 6 M20 12 L30 18" stroke="url(#gold-shimmer-divider)" strokeWidth="1.2" strokeLinecap="round" />
+        {/* Right wing lines */}
+        <path d="M140 12 H230 M220 12 L210 6 M220 12 L210 18" stroke="url(#gold-shimmer-divider)" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
     </div>
   );
 }
 
-// ══════════ PARTICLES ══════════
+// ══════════ HEART SVG DIVIDER ══════════
+function HeartDivider() {
+  return (
+    <div className="gold-divider" style={{ margin: "32px auto" }}>
+      <svg width="180" height="24" viewBox="0 0 180 24" fill="none" style={{ opacity: 0.85 }}>
+        <defs>
+          <linearGradient id="gold-shimmer-heart" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#bda06a" />
+            <stop offset="25%" stopColor="#dfc089" />
+            <stop offset="50%" stopColor="#fffdf5" />
+            <stop offset="75%" stopColor="#dfc089" />
+            <stop offset="100%" stopColor="#bda06a" />
+            <animate attributeName="x1" from="-100%" to="100%" dur="3.5s" repeatCount="indefinite" />
+            <animate attributeName="x2" from="0%" to="200%" dur="3.5s" repeatCount="indefinite" />
+          </linearGradient>
+        </defs>
+        <path d="M12 12 H70" stroke="url(#gold-shimmer-heart)" strokeWidth="1" strokeLinecap="round" />
+        <path
+          d="M90 19.5c.37-.36.75-.8 1.12-1.37A12.7 12.7 0 0 0 94.5 13a4.2 4.2 0 0 0-3.37-6.5c-1.23 0-2.1.37-3.13 1.5-1.03-1.13-1.9-1.5-3.13-1.5A4.2 4.2 0 0 0 81.5 13c0 1.63 1.05 2.87 2.1 3.88l5.43 5.12Z"
+          fill="url(#gold-shimmer-heart)"
+          stroke="url(#gold-shimmer-heart)"
+          strokeWidth="1"
+        />
+        <path d="M110 12 H168" stroke="url(#gold-shimmer-heart)" strokeWidth="1" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
+
+// ══════════ PARTICLES (SVG GOLDEN SPARKLES) ══════════
 function Particles() {
   return (
     <div className="particles">
-      {Array.from({ length: 15 }, (_, i) => (
-        <div
-          key={i}
-          className="particle"
-          style={{
-            width: `${2 + Math.random() * 4}px`,
-            height: `${2 + Math.random() * 4}px`,
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 12}s`,
-            animationDuration: `${10 + Math.random() * 8}s`,
-          }}
-        />
-      ))}
+      {Array.from({ length: 20 }, (_, i) => {
+        const size = 6 + Math.random() * 10;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = 12 + Math.random() * 8;
+        return (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              left: `${left}%`,
+              animationDelay: `${delay}s`,
+              animationDuration: `${duration}s`,
+            }}
+          >
+            <svg
+              width={size}
+              height={size}
+              viewBox="0 0 24 24"
+              fill="none"
+              style={{
+                opacity: 0.3 + Math.random() * 0.45,
+                transform: `rotate(${Math.random() * 360}deg)`,
+              }}
+            >
+              <path
+                d="M12 2C12 2 18 7 18 12C18 17 14.5 21 12 23C9.5 21 6 17 6 12C6 7 12 2 12 2Z"
+                fill="#dfc089"
+              />
+            </svg>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-// ══════════ FADE-UP ══════════
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, delay: delay * 0.15, ease: [0.16, 1, 0.3, 1] as const },
-  }),
-};
+// ══════════ ROYAL CREST ══════════
+function RoyalCrest() {
+  return (
+    <div className="royal-crest-wrapper">
+      <div className="royal-crest-circle">
+        <svg
+          width="180"
+          height="180"
+          viewBox="0 0 100 100"
+          style={{ position: 'absolute', transform: 'rotate(-90deg)', pointerEvents: 'none' }}
+        >
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke="#bda06a"
+            strokeWidth="0.8"
+            strokeDasharray="4 2"
+          />
+        </svg>
+        <div className="royal-crest-letters">
+          <span>غ</span>
+          <span className="royal-crest-amp">&amp;</span>
+          <span>ع</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-// ══════════ ENVELOPE INTRO ══════════
-function EnvelopeIntro({ onOpen }: { onOpen: () => void }) {
-  const [isOpen, setIsOpen] = useState(false);
+// ══════════ CURTAIN INTRO (DOUBLE-GATE SPLITTING VIEW) ══════════
+function CurtainIntro({ onOpen }: { onOpen: () => void }) {
+  const [animating, setAnimating] = useState(false);
 
-  const handleSealClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsOpen(true);
-    // Wait for flap to open, then card to slide out completely
-    setTimeout(() => onOpen(), 2200);
+  const handleOpen = () => {
+    setAnimating(true);
   };
 
   return (
-    <motion.div
-      className="envelope-intro"
-      exit={{ opacity: 0, scale: 1.05 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-    >
+    <div className="curtain-intro-wrapper">
+      {/* Left Gate Panel */}
       <motion.div
-        className={`envelope ${isOpen ? "envelope--open" : ""}`}
-        initial={{ opacity: 0, y: 80, rotateX: 10, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-        transition={{ duration: 1.5, delay: 0.3, ease: [0.25, 1, 0.5, 1] as const }}
+        className="curtain-gate curtain-gate--left"
+        initial={{ x: 0 }}
+        animate={{ x: animating ? "-100%" : 0 }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] as const }}
+        onAnimationComplete={() => {
+          if (animating) {
+            onOpen();
+          }
+        }}
+      />
+      {/* Right Gate Panel */}
+      <motion.div
+        className="curtain-gate curtain-gate--right"
+        initial={{ x: 0 }}
+        animate={{ x: animating ? "100%" : 0 }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] as const }}
+      />
+
+      {/* Centered Content */}
+      <motion.div
+        className="curtain-intro__content"
+        initial={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: animating ? 0 : 1, scale: animating ? 0.95 : 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="envelope__body" />
-
-        <motion.div
-          className="envelope__card"
-          initial={{ y: 0, scale: 1 }}
-          animate={isOpen ? { y: "-100%", scale: 1.05 } : { y: 0, scale: 1 }}
-          transition={{ duration: 1.5, delay: 0.6, ease: [0.25, 1, 0.5, 1] as const }}
+        <RoyalCrest />
+        <p className="curtain-intro__label">دعوة حفل زفاف</p>
+        <motion.button
+          className="curtain-enter-btn"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={handleOpen}
         >
-          <div className="envelope__card-ornament">✦ ✦ ✦</div>
-          <p className="envelope__card-label">دعوة حفل زفاف</p>
-          <p className="envelope__card-invite">{weddingData.invitationText}</p>
-          <div className="envelope__card-families">
-            <span>{weddingData.brideFamily}</span>
-            <span className="envelope__card-amp">&</span>
-            <span>{weddingData.groomFamily}</span>
-          </div>
-          <div className="envelope__card-heart">♥</div>
-          <p className="envelope__card-date">{weddingData.dateDisplay}</p>
-          <div className="envelope__card-bottom-ornament">✦ ─── ♥ ─── ✦</div>
-        </motion.div>
-
-        <div className="envelope__flap">
-          <div className="envelope__flap-inner" />
-        </div>
-
-        <motion.div
-          className="envelope__seal"
-          onClick={handleSealClick}
-        >
-          <img src={waxSealImg} alt="Wax seal" />
-        </motion.div>
-
-        {!isOpen && (
-          <motion.p
-            className="envelope__prompt"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-          >
-            اضغط على الختم لفتح الدعوة
-          </motion.p>
-        )}
+          افتح الدعوة
+        </motion.button>
+        <p className="curtain-intro__footer">{weddingData.dateDisplay}</p>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
-// ══════════ SECTION 1: OPENING (Prayer + Quote + Invitation) ══════════
+// ══════════ STAGGERED SCROLL REVEAL CONFIG ══════════
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.18,
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const }
+  }
+};
+
+const lineVariants = {
+  hidden: { scaleX: 0, opacity: 0 },
+  visible: {
+    scaleX: 1,
+    opacity: 0.85,
+    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] as const }
+  }
+};
+
+const viewportConfig = { once: true, amount: 0.15 };
+
+// ══════════ SECTION 1: HERO OPENING ══════════
 function OpeningSection() {
   return (
-    <section className="hero" id="top">
-      <div className="hero__bg">
-        <img src={silkyBg} alt="" />
-      </div>
-
-      <div className="hero__corner hero__corner--tl" />
-      <div className="hero__corner hero__corner--tr" />
-      <div className="hero__corner hero__corner--bl" />
-      <div className="hero__corner hero__corner--br" />
-
-      <div className="hero__content">
-        {/* Opening Prayer */}
-        <motion.p
-          className="hero__bismillah"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.3 }}
-        >
+    <section className="hero-royal" id="top">
+      <motion.div
+        className="hero-royal__content"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
+        <motion.p className="hero-royal__bismillah" variants={itemVariants}>
           {weddingData.openingPrayer}
         </motion.p>
 
-        <Ornament />
-
-        {/* Quote */}
-        <motion.p
-          className="hero__quote"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-        >
-          {weddingData.quote}
-        </motion.p>
-
-        <Ornament large />
-
-        {/* Invitation line */}
-        <motion.p
-          className="hero__invite-line"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          {weddingData.invitationText}
-        </motion.p>
-
-        {/* Family names */}
-        <motion.div
-          className="hero__names"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 1.6, ease: [0.16, 1, 0.3, 1] as const }}
-        >
-          <h1 className="hero__name">{weddingData.brideFamily}</h1>
-          <span className="hero__ampersand">&</span>
-          <h1 className="hero__name">{weddingData.groomFamily}</h1>
+        <motion.div variants={lineVariants} style={{ originX: 0.5 }}>
+          <GoldDivider />
         </motion.div>
-      </div>
+
+        <motion.p className="hero-royal__invite-line" variants={itemVariants}>
+          دعوة حفل زفاف
+        </motion.p>
+
+        <motion.div className="hero-royal__names gold-gradient-text" variants={itemVariants}>
+          <h1 className="hero-royal__name">{weddingData.brideFamily}</h1>
+          <span className="hero-royal__ampersand">&amp;</span>
+          <h1 className="hero-royal__name">{weddingData.groomFamily}</h1>
+        </motion.div>
+
+        <motion.div variants={lineVariants} style={{ originX: 0.5 }}>
+          <GoldDivider />
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          style={{ marginTop: "16px", color: "var(--text-muted)", fontSize: "1.1rem" }}
+        >
+          <p>{weddingData.dayName}، {weddingData.dateDisplay}</p>
+          <p style={{ marginTop: "6px" }}>الساعة {weddingData.time}</p>
+          <p style={{ marginTop: "6px" }}>{weddingData.venue.name}</p>
+        </motion.div>
+      </motion.div>
 
       <motion.div
-        className="hero__scroll"
+        className="hero-royal__scroll"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ duration: 1, delay: 3 }}
+        animate={{ opacity: 0.65 }}
+        transition={{ duration: 1, delay: 2.2 }}
       >
         <span>مرر للأسفل</span>
-        <div className="hero__scroll-line" />
+        <div className="hero-royal__scroll-line" />
       </motion.div>
     </section>
   );
 }
 
-// ══════════ SECTION 2: COUPLE (Names + Day Quote + Date) ══════════
-function CoupleSection() {
+// ══════════ SECTION 2: INVITATION MESSAGE ══════════
+function MessageSection() {
   return (
-    <section className="section" id="couple">
-      <div className="section__bg">
-        <img src={floralBg} alt="" />
-      </div>
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        <Ornament large />
-
-        {/* Titles & Names */}
-        <motion.div className="couple__titles" variants={fadeUp} custom={0}>
-          <div className="couple__person">
-            <span className="couple__title">{weddingData.groomTitle}</span>
-            <span className="couple__name">{weddingData.groom}</span>
-          </div>
-          <div className="couple__divider">/</div>
-          <div className="couple__person">
-            <span className="couple__title">{weddingData.brideTitle}</span>
-            <span className="couple__name">{weddingData.bride}</span>
-          </div>
+    <section className="section-royal" id="message">
+      <motion.div
+        className="section-royal__content"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
+        <motion.div variants={lineVariants} style={{ originX: 0.5 }}>
+          <HeartDivider />
         </motion.div>
 
-        <Ornament />
-
-        {/* Day quote */}
-        <motion.p className="couple__day-quote" variants={fadeUp} custom={1}>
-          {weddingData.dayQuote}
-        </motion.p>
-        <motion.p className="couple__day-quote couple__day-quote--accent" variants={fadeUp} custom={2}>
-          {weddingData.dayQuote2}
-        </motion.p>
-
-        <Ornament />
-
-        {/* Date */}
-        <motion.p className="couple__date" variants={fadeUp} custom={3}>
-          {weddingData.dateDisplay}
+        <motion.p className="hero-royal__quote" variants={itemVariants}>
+          {weddingData.quote}
         </motion.p>
       </motion.div>
     </section>
   );
 }
 
-// ══════════ SECTION 3: DUA (Blessing) ══════════
-function DuaSection() {
-  return (
-    <section className="section" id="dua">
-      <div className="section__bg">
-        <img src={silkyBg} alt="" />
-      </div>
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        {/* Alef Lam decoration */}
-        <motion.div className="dua__alef" variants={fadeUp} custom={0}>
-          اللهم
-        </motion.div>
-
-        <Ornament large />
-
-        <motion.p className="dua__text" variants={fadeUp} custom={1}>
-          {weddingData.dua}
-        </motion.p>
-
-        <Ornament large />
-      </motion.div>
-    </section>
-  );
-}
-
-// ══════════ SECTION 4: ATTENDANCE ══════════
-function AttendanceSection() {
-  return (
-    <section className="section" id="attendance">
-      <div className="section__bg">
-        <img src={silkyBg} alt="" />
-      </div>
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        <Ornament large />
-
-        <motion.p className="attendance__text" variants={fadeUp} custom={0}>
-          {weddingData.attendanceText}
-        </motion.p>
-
-        <Ornament />
-
-        <motion.p className="attendance__kids" variants={fadeUp} custom={1}>
-          {weddingData.kidsNote}
-        </motion.p>
-
-        <motion.p className="attendance__rsvp" variants={fadeUp} custom={2}>
-          {weddingData.rsvpNote}
-        </motion.p>
-
-        <Ornament large />
-      </motion.div>
-    </section>
-  );
-}
-
-// ══════════ SECTION 5: EVENT DETAILS ══════════
+// ══════════ SECTION 3: EVENT DETAILS ══════════
 function EventDetailsSection() {
   return (
-    <section className="section" id="details">
-      <div className="section__bg">
-        <img src={floralBg} alt="" />
-      </div>
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-        <Ornament large />
+    <section className="section-royal" id="details">
+      <motion.div
+        className="section-royal__content"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
+        <motion.div variants={lineVariants} style={{ originX: 0.5 }}>
+          <GoldDivider />
+        </motion.div>
 
-        <motion.p className="event__mashia" variants={fadeUp} custom={0}>
+        <motion.p className="event-royal__mashia" variants={itemVariants}>
           {weddingData.eventDateLine}
         </motion.p>
 
-        <motion.div className="event__detail" variants={fadeUp} custom={1}>
-          <span className="event__icon">📅</span>
-          <span className="event__value">{weddingData.dateDisplay}</span>
-        </motion.div>
+        <div className="event-royal__grid">
+          <motion.div className="event-royal__card" variants={itemVariants}>
+            <span className="event-royal__icon">📅</span>
+            <span className="event-royal__label">التاريخ</span>
+            <span className="event-royal__value">{weddingData.dateDisplay}</span>
+          </motion.div>
 
-        <motion.div className="event__detail" variants={fadeUp} custom={2}>
-          <span className="event__icon">📍</span>
-          <span className="event__value">{weddingData.venue.area}</span>
-        </motion.div>
+          <motion.div className="event-royal__card" variants={itemVariants}>
+            <span className="event-royal__icon">🕐</span>
+            <span className="event-royal__label">الوقت</span>
+            <span className="event-royal__value event-royal__value--large">{weddingData.time}</span>
+          </motion.div>
 
-        <motion.p className="event__venue-name" variants={fadeUp} custom={3}>
-          {weddingData.venue.name}
-        </motion.p>
-
-        <motion.div className="event__detail" variants={fadeUp} custom={4}>
-          <span className="event__icon">🕐</span>
-          <span className="event__value event__value--large">{weddingData.time}</span>
-        </motion.div>
-
+          <motion.div className="event-royal__card" variants={itemVariants}>
+            <span className="event-royal__icon">📍</span>
+            <span className="event-royal__label">المكان</span>
+            <span className="event-royal__value">{weddingData.venue.name}</span>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );
 }
 
-// ══════════ COUNTDOWN ══════════
+// ══════════ SECTION 4: COUNTDOWN ══════════
 function CountdownSection() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -350,33 +360,37 @@ function CountdownSection() {
   }, []);
 
   return (
-    <section className="countdown section" id="countdown">
-      <div className="section__bg">
-        <img src={floralBg} alt="" />
-      </div>
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <motion.h2 className="countdown__title" variants={fadeUp} custom={0}>
+    <section className="section-royal" id="countdown">
+      <motion.div
+        className="section-royal__content"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
+        <motion.h2 className="countdown-royal__title" variants={itemVariants}>
           العد التنازلي لليوم الموعود
         </motion.h2>
-        <motion.div className="countdown__grid" variants={fadeUp} custom={1}>
-          <div className="countdown__item">
-            <span className="countdown__number">{timeLeft.days}</span>
-            <span className="countdown__label">يوم</span>
+
+        <motion.div className="countdown-royal__grid" variants={itemVariants}>
+          <div className="countdown-royal__circle">
+            <span className="countdown-royal__number">{timeLeft.days}</span>
+            <span className="countdown-royal__label">يوم</span>
           </div>
-          <span className="countdown__separator">:</span>
-          <div className="countdown__item">
-            <span className="countdown__number">{timeLeft.hours}</span>
-            <span className="countdown__label">ساعة</span>
+          <span className="countdown-royal__separator">:</span>
+          <div className="countdown-royal__circle">
+            <span className="countdown-royal__number">{timeLeft.hours}</span>
+            <span className="countdown-royal__label">ساعة</span>
           </div>
-          <span className="countdown__separator">:</span>
-          <div className="countdown__item">
-            <span className="countdown__number">{timeLeft.minutes}</span>
-            <span className="countdown__label">دقيقة</span>
+          <span className="countdown-royal__separator">:</span>
+          <div className="countdown-royal__circle">
+            <span className="countdown-royal__number">{timeLeft.minutes}</span>
+            <span className="countdown-royal__label">دقيقة</span>
           </div>
-          <span className="countdown__separator">:</span>
-          <div className="countdown__item">
-            <span className="countdown__number">{timeLeft.seconds}</span>
-            <span className="countdown__label">ثانية</span>
+          <span className="countdown-royal__separator">:</span>
+          <div className="countdown-royal__circle">
+            <span className="countdown-royal__number">{timeLeft.seconds}</span>
+            <span className="countdown-royal__label">ثانية</span>
           </div>
         </motion.div>
       </motion.div>
@@ -384,26 +398,38 @@ function CountdownSection() {
   );
 }
 
-// ══════════ CLOSING ══════════
+// ══════════ SECTION 5: CLOSING ══════════
 function ClosingSection() {
   return (
-    <section className="closing section">
-      <div className="section__bg">
-        <img src={silkyBg} alt="" />
-      </div>
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        <span className="flourish">✦</span>
-        <Ornament large />
-        <motion.h2 className="closing__names shimmer-text" variants={fadeUp} custom={0}>
+    <section className="section-royal" id="closing">
+      <motion.div
+        className="section-royal__content"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
+        <motion.span className="flourish" variants={itemVariants}>✦</motion.span>
+
+        <motion.div variants={lineVariants} style={{ originX: 0.5 }}>
+          <GoldDivider />
+        </motion.div>
+
+        <motion.h2 className="closing-royal__names gold-gradient-text" variants={itemVariants}>
           {weddingData.bride} ♥ {weddingData.groom}
         </motion.h2>
-        <motion.p className="closing__message" variants={fadeUp} custom={1}>
+
+        <motion.p className="closing-royal__message" variants={itemVariants}>
           {weddingData.closingMessage}
         </motion.p>
-        <motion.p className="closing__date" variants={fadeUp} custom={2}>
+
+        <motion.p className="closing-royal__date" variants={itemVariants}>
           {weddingData.dateDisplay}
         </motion.p>
-        <Ornament large />
+
+        <motion.div variants={lineVariants} style={{ originX: 0.5 }}>
+          <GoldDivider />
+        </motion.div>
       </motion.div>
     </section>
   );
@@ -412,22 +438,86 @@ function ClosingSection() {
 // ══════════ MAIN APP ══════════
 export default function App() {
   const [opened, setOpened] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Initialize ambient audio background music
+    audioRef.current = new Audio(musicFile);
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.55; // Gentle, luxury-tier background volume level
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
+
+  const handlePlayToggle = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch((err) => console.log("Audio play failed:", err));
+      setIsPlaying(true);
+    }
+  };
+
+  const handleOpenInvitation = () => {
+    setOpened(true);
+    // Auto-trigger music play. Browser permits autoplay since this is inside a click handler (user gesture).
+    if (audioRef.current) {
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.log("Music autoplay failed:", err));
+    }
+  };
 
   return (
     <>
-      <AnimatePresence>
-        {!opened && <EnvelopeIntro onOpen={() => setOpened(true)} />}
+      {/* Permanent background and page frame to prevent layout flash/resizing lag on mobile */}
+      <div className="app-bg">
+        <img src={emeraldBg} className="app-bg__img" alt="" />
+        <div className="app-bg__overlay" />
+      </div>
+      <div className="page-frame" />
+
+      {/* Floating Gold Music Controls Button */}
+      {opened && (
+        <button
+          className={`music-toggle-btn ${isPlaying ? "playing" : ""}`}
+          onClick={handlePlayToggle}
+          aria-label="Toggle Background Music"
+        >
+          <div className="music-toggle-btn__ripple" />
+          <svg
+            className="music-toggle-btn__icon"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="currentColor"
+          >
+            {isPlaying ? (
+              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-8z" />
+            ) : (
+              <path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.18l5.45 5.45L21 21.73 4.27 3zM14 7h4V3h-6v5.18l2 2V7z" />
+            )}
+          </svg>
+        </button>
+      )}
+
+      <AnimatePresence mode="wait">
+        {!opened && <CurtainIntro key="curtain" onOpen={handleOpenInvitation} />}
       </AnimatePresence>
 
       {opened && (
-        <>
+        <div className="app-scroll-container">
           <Particles />
-          <div className="page-frame" />
-          <DuaSection />
-          <CoupleSection />
           <OpeningSection />
+          <MessageSection />
           <EventDetailsSection />
-          <AttendanceSection />
           <CountdownSection />
           <ClosingSection />
           <footer className="footer">
@@ -435,7 +525,7 @@ export default function App() {
               صُمم بكل <span className="footer__heart">♥</span>
             </p>
           </footer>
-        </>
+        </div>
       )}
     </>
   );
