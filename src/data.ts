@@ -20,8 +20,8 @@ export const weddingData = {
   // ─── Venue ───
   venue: {
     area: "",
-    name: "صالة الياسمين",
-    mapQuery: "صالة الياسمين دمشق",
+    name: "قصر الياسمين",
+    mapQuery: "قصر الياسمين دمشق",
     mapEmbed: "",
   },
 
@@ -32,7 +32,7 @@ export const weddingData = {
   quote: `"بقلوب يملؤها الفرح والامتنان، يسعدنا أن نشارككم أجمل أيام حياتنا، ونتشرف بحضوركم الكريم لتكتمل فرحتنا بوجودكم."`,
 
   // ─── Invitation Text ───
-  invitationText: "نتشرف بدعوتكم لحفل زفاف",
+  invitationText: "نتشرف بدعوتكم لحفل زفاف آل زينو",
 
   // ─── About the Day ───
   dayQuote: "في العمر أيامٌ يزينها السرور",

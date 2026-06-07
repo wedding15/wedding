@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { weddingData } from "./data";
-import emeraldBg from "./assets/emerald-burgundy-bg.png";
+import whiteGoldBg from "./assets/white-gold-bg.png";
 import musicFile from "./assets/wedding-music.mp3";
 import { useRef } from "react";
 
@@ -236,7 +236,7 @@ function OpeningSection() {
         </motion.div>
 
         <motion.p className="hero-royal__invite-line" variants={itemVariants}>
-          دعوة حفل زفاف
+          {weddingData.invitationText}
         </motion.p>
 
         <motion.div className="hero-royal__names gold-gradient-text" variants={itemVariants}>
@@ -479,7 +479,7 @@ export default function App() {
     <>
       {/* Permanent background and page frame to prevent layout flash/resizing lag on mobile */}
       <div className="app-bg">
-        <img src={emeraldBg} className="app-bg__img" alt="" />
+        <img src={whiteGoldBg} className="app-bg__img" alt="" />
         <div className="app-bg__overlay" />
       </div>
       <div className="page-frame" />
