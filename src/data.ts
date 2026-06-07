@@ -17,11 +17,10 @@ export const weddingData = {
   dayName: "الأحد",
   time: "7:00 مساءً",
 
-  // ─── Venue ───
   venue: {
     area: "",
-    name: "قصر الياسمين",
-    mapQuery: "قصر الياسمين دمشق",
+    name: "قصر الياسمين - كفربطنا",
+    mapQuery: "قصر الياسمين كفربطنا",
     mapEmbed: "",
   },
 
