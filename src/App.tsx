@@ -124,9 +124,9 @@ function RoyalCrest() {
           />
         </svg>
         <div className="royal-crest-letters">
-          <span>غ</span>
-          <span className="royal-crest-amp">&amp;</span>
           <span>ع</span>
+          <span className="royal-crest-amp">&amp;</span>
+          <span>غ</span>
         </div>
       </div>
     </div>
@@ -240,9 +240,9 @@ function OpeningSection() {
         </motion.p>
 
         <motion.div className="hero-royal__names gold-gradient-text" variants={itemVariants}>
-          <h1 className="hero-royal__name">{weddingData.brideFamily}</h1>
-          <span className="hero-royal__ampersand">&amp;</span>
           <h1 className="hero-royal__name">{weddingData.groomFamily}</h1>
+          <span className="hero-royal__ampersand">&amp;</span>
+          <h1 className="hero-royal__name">{weddingData.brideFamily}</h1>
         </motion.div>
 
         <motion.div variants={lineVariants} style={{ originX: 0.5 }}>
@@ -416,7 +416,7 @@ function ClosingSection() {
         </motion.div>
 
         <motion.h2 className="closing-royal__names gold-gradient-text" variants={itemVariants}>
-          {weddingData.bride} ♥ {weddingData.groom}
+          {weddingData.groom} ♥ {weddingData.bride}
         </motion.h2>
 
         <motion.p className="closing-royal__message" variants={itemVariants}>
