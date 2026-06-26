@@ -12,11 +12,11 @@ function GoldDivider() {
       <svg width="240" height="24" viewBox="0 0 240 24" fill="none">
         <defs>
           <linearGradient id="gold-shimmer-divider" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#bda06a" />
-            <stop offset="25%" stopColor="#dfc089" />
-            <stop offset="50%" stopColor="#fffdf5" />
-            <stop offset="75%" stopColor="#dfc089" />
-            <stop offset="100%" stopColor="#bda06a" />
+            <stop offset="0%" stopColor="#540516" />
+            <stop offset="25%" stopColor="#800c24" />
+            <stop offset="50%" stopColor="#fff5f6" />
+            <stop offset="75%" stopColor="#800c24" />
+            <stop offset="100%" stopColor="#540516" />
             <animate attributeName="x1" from="-100%" to="100%" dur="3.5s" repeatCount="indefinite" />
             <animate attributeName="x2" from="0%" to="200%" dur="3.5s" repeatCount="indefinite" />
           </linearGradient>
@@ -39,11 +39,11 @@ function HeartDivider() {
       <svg width="180" height="24" viewBox="0 0 180 24" fill="none" style={{ opacity: 0.85 }}>
         <defs>
           <linearGradient id="gold-shimmer-heart" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#bda06a" />
-            <stop offset="25%" stopColor="#dfc089" />
-            <stop offset="50%" stopColor="#fffdf5" />
-            <stop offset="75%" stopColor="#dfc089" />
-            <stop offset="100%" stopColor="#bda06a" />
+            <stop offset="0%" stopColor="#540516" />
+            <stop offset="25%" stopColor="#800c24" />
+            <stop offset="50%" stopColor="#fff5f6" />
+            <stop offset="75%" stopColor="#800c24" />
+            <stop offset="100%" stopColor="#540516" />
             <animate attributeName="x1" from="-100%" to="100%" dur="3.5s" repeatCount="indefinite" />
             <animate attributeName="x2" from="0%" to="200%" dur="3.5s" repeatCount="indefinite" />
           </linearGradient>
@@ -92,7 +92,7 @@ function Particles() {
             >
               <path
                 d="M12 2C12 2 18 7 18 12C18 17 14.5 21 12 23C9.5 21 6 17 6 12C6 7 12 2 12 2Z"
-                fill="#dfc089"
+                fill="#800c24"
               />
             </svg>
           </div>
@@ -118,7 +118,7 @@ function RoyalCrest() {
             cy="50"
             r="45"
             fill="none"
-            stroke="#bda06a"
+            stroke="#800c24"
             strokeWidth="0.8"
             strokeDasharray="4 2"
           />
