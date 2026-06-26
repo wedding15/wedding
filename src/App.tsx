@@ -14,7 +14,7 @@ function GoldDivider() {
           <linearGradient id="gold-shimmer-divider" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#540516" />
             <stop offset="25%" stopColor="#800c24" />
-            <stop offset="50%" stopColor="#fff5f6" />
+            <stop offset="50%" stopColor="#c21b3e" />
             <stop offset="75%" stopColor="#800c24" />
             <stop offset="100%" stopColor="#540516" />
             <animate attributeName="x1" from="-100%" to="100%" dur="3.5s" repeatCount="indefinite" />
@@ -41,7 +41,7 @@ function HeartDivider() {
           <linearGradient id="gold-shimmer-heart" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#540516" />
             <stop offset="25%" stopColor="#800c24" />
-            <stop offset="50%" stopColor="#fff5f6" />
+            <stop offset="50%" stopColor="#c21b3e" />
             <stop offset="75%" stopColor="#800c24" />
             <stop offset="100%" stopColor="#540516" />
             <animate attributeName="x1" from="-100%" to="100%" dur="3.5s" repeatCount="indefinite" />
