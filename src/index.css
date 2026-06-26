@@ -3,16 +3,16 @@
    ═══════════════════════════════════════════ */
 
 :root {
-  --gold: #800c24;
-  --gold-light: #fcf2f4;
-  --gold-dark: #540516;
-  --gold-shimmer: #fff9fa;
-  --cream: #ffffff;
-  --cream-dark: #fbf9f5;
-  --ivory-paper: #faf7f2;
-  --charcoal: #1c1a17;
-  --text-dark: #2c2822;
-  --text-muted: #8c525f;
+  --gold: #dfc089;
+  --gold-light: #fffdf5;
+  --gold-dark: #bda06a;
+  --gold-shimmer: #fffdf5;
+  --cream: #2b020a;          /* Dark Burgundy base */
+  --cream-dark: #200107;     /* Velvet black-burgundy */
+  --ivory-paper: #3d040f;
+  --charcoal: #ffffff;
+  --text-dark: #fcf9f2;      /* Off-white/Ivory read text */
+  --text-muted: #cfa87b;     /* Sandy rose-gold */
   --white: #ffffff;
   
   --font-display: 'Amiri', serif;
@@ -68,11 +68,24 @@ body {
 }
 
 .app-bg__img {
-  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+  transform: scale(1.02);
+  will-change: transform;
+  filter: grayscale(1) sepia(1) hue-rotate(310deg) saturate(2) brightness(0.4); /* Burgundy velvet texture */
+  display: block;
 }
 
 .app-bg__overlay {
-  display: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(77, 5, 20, 0.25) 0%, rgba(32, 1, 7, 0.94) 85%);
+  z-index: 1;
+  display: block;
 }
 
 /* ─── Golden Page Frame ─── */
@@ -118,23 +131,31 @@ body {
   top: 0;
   width: 50.5%; /* Slightly overlap by 0.5% to avoid hairline gaps on some screens */
   height: 100%;
-  background: #ffffff;
+  background: radial-gradient(circle at 50% 50%, #4d0514 0%, #200107 100%);
   z-index: 1;
-  box-shadow: 0 0 30px rgba(84, 5, 22, 0.12);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.75);
 }
 
 .curtain-gate--left {
   left: 0;
-  border-right: 1px solid rgba(176, 58, 91, 0.2);
+  border-right: 1px solid rgba(223, 192, 137, 0.2);
 }
 
 .curtain-gate--right {
   right: 0;
-  border-left: 1px solid rgba(176, 58, 91, 0.2);
+  border-left: 1px solid rgba(223, 192, 137, 0.2);
 }
 
 .curtain-gate::after {
-  display: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('./assets/white-gold-bg.png') center/cover;
+  opacity: 0.05;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  filter: grayscale(1) sepia(1) hue-rotate(310deg) saturate(2) brightness(0.6);
+  display: block;
 }
 
 .curtain-intro__content {
@@ -169,16 +190,16 @@ body {
   width: 180px;
   height: 180px;
   border: 2px solid var(--gold);
-  outline: 1px solid var(--gold-light);
+  outline: 1px solid rgba(223, 192, 137, 0.2);
   outline-offset: -6px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(32, 1, 7, 0.85);
   box-shadow: 
-    0 12px 30px rgba(153, 123, 60, 0.15),
-    inset 0 0 20px rgba(223, 192, 137, 0.05);
+    0 12px 30px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(223, 192, 137, 0.1);
 }
 
 .royal-crest-letters {
@@ -212,9 +233,9 @@ body {
 /* Enter Button */
 .curtain-enter-btn {
   padding: 16px 48px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(32, 1, 7, 0.85);
   border: 1px solid var(--gold);
-  color: var(--gold-dark);
+  color: var(--gold);
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 700;
@@ -223,7 +244,7 @@ body {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  box-shadow: 0 4px 15px rgba(153, 123, 60, 0.12);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   transition: all 0.4s ease;
 }
 
@@ -263,13 +284,13 @@ body {
 
 /* ─── Luxury Gold Text ─── */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #540516 0%, #800c24 25%, #d62447 50%, #800c24 75%, #540516 100%);
+  background: linear-gradient(135deg, #bda06a 0%, #dfc089 25%, #fffdf5 50%, #dfc089 75%, #bda06a 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer-gold 8s linear infinite;
-  text-shadow: 0px 1px 1px rgba(84, 5, 22, 0.15);
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 @keyframes shimmer-gold {
@@ -501,22 +522,22 @@ body {
 .event-royal__card {
   padding: 24px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(128, 12, 36, 0.3);
+  background: rgba(32, 1, 7, 0.65);
+  border: 1px solid rgba(223, 192, 137, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: all 0.4s ease;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(84, 5, 22, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .event-royal__card:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(43, 2, 10, 0.85);
   border-color: var(--gold);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(128, 12, 36, 0.15);
+  box-shadow: 0 8px 25px rgba(223, 192, 137, 0.4);
 }
 
 .event-royal__icon {
@@ -601,14 +622,14 @@ body {
   height: 90px;
   border-radius: 50%;
   border: 1px solid var(--gold);
-  outline: 1px solid rgba(176, 58, 91, 0.15);
+  outline: 1px solid rgba(223, 192, 137, 0.15);
   outline-offset: -5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: inset 0 0 10px rgba(128, 12, 36, 0.05), 0 4px 15px rgba(84, 5, 22, 0.06);
+  background: rgba(32, 1, 7, 0.75);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 4px 15px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
 }
 
@@ -696,8 +717,8 @@ body {
 .footer {
   padding: 30px;
   text-align: center;
-  background: #fdfbf7;
-  border-top: 1px solid rgba(128, 12, 36, 0.15);
+  background: #200107;
+  border-top: 1px solid rgba(223, 192, 137, 0.15);
   position: relative;
   z-index: 10;
 }
@@ -764,7 +785,7 @@ body {
   justify-content: center;
   cursor: pointer;
   z-index: 1001; /* Above the page frame (1000) */
-  box-shadow: 0 4px 15px rgba(84, 5, 22, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
   outline: none;
@@ -774,7 +795,7 @@ body {
 .music-toggle-btn:hover {
   background: rgba(255, 255, 255, 0.95);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(128, 12, 36, 0.25);
+  box-shadow: 0 6px 20px rgba(223, 192, 137, 0.4);
 }
 
 .music-toggle-btn__icon {
