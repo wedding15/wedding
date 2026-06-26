@@ -76,12 +76,13 @@ body {
   opacity: 0.82;
   transform: scale(1.02);
   will-change: transform;
+  filter: hue-rotate(-55deg) saturate(2.5) contrast(1.1) brightness(0.95); /* Shift gold pattern to burgundy */
 }
 
 .app-bg__overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.1) 0%, rgba(251, 249, 245, 0.82) 85%);
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.1) 0%, rgba(252, 248, 249, 0.82) 85%);
   z-index: 1;
 }
 
@@ -128,19 +129,19 @@ body {
   top: 0;
   width: 50.5%; /* Slightly overlap by 0.5% to avoid hairline gaps on some screens */
   height: 100%;
-  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #fcfbf7 60%, #f7f2e4 100%);
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #fcf8f9 60%, #faedf0 100%);
   z-index: 1;
-  box-shadow: 0 0 30px rgba(153, 123, 60, 0.15);
+  box-shadow: 0 0 30px rgba(84, 5, 22, 0.12);
 }
 
 .curtain-gate--left {
   left: 0;
-  border-right: 1px solid rgba(223, 192, 137, 0.25);
+  border-right: 1px solid rgba(176, 58, 91, 0.2);
 }
 
 .curtain-gate--right {
   right: 0;
-  border-left: 1px solid rgba(223, 192, 137, 0.25);
+  border-left: 1px solid rgba(176, 58, 91, 0.2);
 }
 
 .curtain-gate::after {
@@ -151,6 +152,7 @@ body {
   opacity: 0.08;
   mix-blend-mode: multiply;
   pointer-events: none;
+  filter: hue-rotate(-55deg) saturate(2.5) contrast(1.1) brightness(0.95); /* Shift gold pattern to burgundy */
 }
 
 .curtain-intro__content {
